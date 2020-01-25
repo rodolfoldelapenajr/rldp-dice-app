@@ -21,20 +21,30 @@ const SIDES = [
 export class DiceResultsComponent implements OnInit {
     sides = SIDES;
     form: FormGroup;
+    resultsList = [];
     constructor(private diceBackendService: DiceBackendService) { }
 
     ngOnInit() {
+        const commonValidators = [
+            Validators.pattern("^[0-9]*$"),
+            Validators.min(1),
+            Validators.max(100)
+        ]
         this.form = new FormGroup({
-            pieces: new FormControl(1),
+            pieces: new FormControl(1, commonValidators),
             sides: new FormControl(4),
-            rolls: new FormControl(1),
+            rolls: new FormControl(1, commonValidators),
         });
     }
 
     rollDice(params) {
         const request = new DiceRequest(params);
-        this.diceBackendService.rollDice(request).subscribe(result => {
-            console.log(result);
+        this.diceBackendService.rollDice(request).subscribe(results => {
+            console.log(JSON.stringify(results))
+            this.resultsList.push(results)
         });
+    }
+    toInt(num: any) {
+        return parseInt(num);
     }
 }

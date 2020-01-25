@@ -14,7 +14,7 @@ export class DiceBackendService {
     rollDice(req: DiceRequest): Observable<DiceResults> {
         return this.http.get(`/rldp-diceapp-service/dice/roll?pieces=${req.pieces}&sides=${req.sides}&rolls=${req.rolls}`)
             .pipe(map((response: Response) => {
-            return new DiceResults(response.json());
+            return new DiceResults(response.json(), req);
         }))
     }
 }
