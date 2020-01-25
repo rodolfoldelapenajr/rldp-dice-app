@@ -26,9 +26,10 @@ export class DiceResultsComponent implements OnInit {
 
     ngOnInit() {
         const commonValidators = [
-            Validators.pattern("^[0-9]*$"),
+            Validators.pattern("^[1-9]{1}[0-9]*"),
             Validators.min(1),
-            Validators.max(100)
+            Validators.max(100),
+            Validators.required
         ]
         this.form = new FormGroup({
             pieces: new FormControl(1, commonValidators),
