@@ -14,10 +14,10 @@ import com.rldp.diceapp.util.DiceUtil;
 public class DiceService {
 	private static final Logger log = LoggerFactory.getLogger(DiceService.class);
 
-	public DiceResponse rollDice() {
+	public DiceResponse rollDice(Integer pieces, Integer sides, Integer rolls) {
 		final DiceResponse dice = new DiceResponse();
-		for (int i = 0; i < 100; i++) {
-			rollDice(dice);
+		for (int i = 0; i < rolls; i++) {
+			rollDice(dice, pieces, sides);
 		}
 
 		log.info("dice response: {}", dice);
@@ -30,10 +30,10 @@ public class DiceService {
 		sumMap.put(diceRoll.getSum(), total);
 	}
 
-	private void rollDice(DiceResponse dice) {
-		DiceRoll diceRoll = new DiceRoll();
-		for (int i = 0; i < 3; i++) {
-			int random = DiceUtil.rand(1, 6);
+	private void rollDice(DiceResponse dice, Integer pieces, Integer sides) {
+		final DiceRoll diceRoll = new DiceRoll();
+		for (int i = 0; i < pieces; i++) {
+			int random = DiceUtil.rand(1, sides);
 			diceRoll.add(random);
 		}
 		populateSumList(diceRoll, dice.getSumMap());
