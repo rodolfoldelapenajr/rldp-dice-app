@@ -1,0 +1,8 @@
+<form [formGroup]="form" (ngSubmit)="rollDice(form.value)">
+    <input tyoe="text" formControlName="pieces">
+    <select tyoe="text" formControlName="sides">
+        <option *ngFor="let i of sides" value="{{i}}">{{i}}</option>
+    </select>
+    <input tyoe="text" formControlName="rolls">
+    <input type="submit" [disabled] = "!form.valid" value="Submit">
+</form>
