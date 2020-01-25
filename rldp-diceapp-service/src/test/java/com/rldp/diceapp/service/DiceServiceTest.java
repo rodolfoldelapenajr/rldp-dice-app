@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.rldp.diceapp.model.DiceRequest;
 import com.rldp.diceapp.model.DiceResponse;
 
 class DiceServiceTest {
@@ -14,7 +15,11 @@ class DiceServiceTest {
 	
 	@Test
 	void shouldRollDiceProperly() {
-		DiceResponse diceResponse = diceService.rollDice(3, 6, 100);
+		DiceRequest request = new DiceRequest();
+		request.setPieces(3);
+		request.setSides(6);
+		request.setRolls(100);
+		DiceResponse diceResponse = diceService.rollDice(request);
 		assertEquals(100, diceResponse.getDiceRollList().size());
 		List<Integer> results = diceResponse.getDiceRollList().get(0).getResults();
 		assertEquals(3, results.size());
