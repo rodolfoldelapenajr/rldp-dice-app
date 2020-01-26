@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rldp.diceapp.model.DiceRequest;
 import com.rldp.diceapp.model.DiceResponse;
+import com.rldp.diceapp.model.DiceResponseReport;
 import com.rldp.diceapp.service.DiceService;
 
 @RestController
@@ -24,5 +25,10 @@ public class DiceController {
 	public ResponseEntity<DiceResponse> roll(
 			@Valid DiceRequest request) {
 		return new ResponseEntity<>(diceService.rollDice(request), HttpStatus.OK);
+	}
+
+	@GetMapping("report")
+	public ResponseEntity<DiceResponseReport> get() {
+		return new ResponseEntity<>(diceService.getResults(), HttpStatus.OK);
 	}
 }

@@ -9,6 +9,9 @@ public class DiceSum implements Serializable {
 	private int sum;
 	private int count;
 
+	public DiceSum() {
+	}
+
 	public DiceSum(int sum) {
 		this.sum = sum;
 	}

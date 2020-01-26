@@ -1,5 +1,6 @@
 package com.rldp.diceapp.model;
 
+import java.time.Instant;
 import java.util.*;
 
 import org.mongodb.morphia.annotations.Entity;
@@ -8,11 +9,14 @@ import org.mongodb.morphia.annotations.Entity;
 public class DiceResponse {
 
 	private final List<DiceRoll> diceRollList = new ArrayList<>();
-	
+
 	private final Set<DiceSum> diceSumSet = new HashSet<>();
 
-	private final DiceRequest request;
-	
+	private DiceRequest request;
+
+	public DiceResponse() {
+	}
+
 	public DiceResponse(DiceRequest request) {
 		this.request = request;
 	}
@@ -36,11 +40,11 @@ public class DiceResponse {
 	public void add(DiceRoll diceRoll) {
 		diceRollList.add(diceRoll);
 	}
-	
+
 	public void add(DiceSum diceSum) {
 		diceSumSet.add(diceSum);
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
