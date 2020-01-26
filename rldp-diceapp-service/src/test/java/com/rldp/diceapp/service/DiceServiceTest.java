@@ -4,14 +4,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.rldp.diceapp.model.DiceRequest;
 import com.rldp.diceapp.model.DiceResponse;
+import com.rldp.diceapp.mongodb.repository.DiceResponseRepository;
 
-class DiceServiceTest {
+public class DiceServiceTest {
 	
-	private DiceService diceService = new DiceService();
+	private DiceResponseRepository repository;
+	private DiceService diceService;
+	
+	@BeforeEach
+	public void init() {
+		repository = Mockito.mock(DiceResponseRepository.class);
+		diceService = new DiceService(repository);
+	}
 	
 	@Test
 	void shouldRollDiceProperly() {
@@ -27,5 +37,4 @@ class DiceServiceTest {
 			assertTrue(num >= 1 && num <= 6);
 		});
 	}
-
 }

@@ -1,20 +1,20 @@
 package com.rldp.diceapp.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.mongodb.morphia.annotations.Entity;
 
+@Entity(value = "diceResponse", noClassnameStored = true)
 public class DiceResponse {
-	private final List<DiceRoll> diceRollList = new ArrayList<>();
-	private final Map<Integer, Integer> sumMap = new HashMap<>();
 
-	public void add(DiceRoll diceRoll) {
-		diceRollList.add(diceRoll);
+	private final List<DiceRoll> diceRollList = new ArrayList<>();
+	
+	private final Set<DiceSum> diceSumSet = new HashSet<>();
+
+	private final DiceRequest request;
+	
+	public DiceResponse(DiceRequest request) {
+		this.request = request;
 	}
 
 	public List<DiceRoll> getDiceRollList() {
@@ -22,19 +22,25 @@ public class DiceResponse {
 	}
 
 	public Set<DiceSum> getDiceSumSet() {
-		return sumMap.entrySet().stream().map(map -> {
-			DiceSum diceSum = new DiceSum();
-			diceSum.setSum(map.getKey());
-			diceSum.setCount(map.getValue());
-			return diceSum;
-		}).collect(Collectors.toSet());
+		return diceSumSet;
 	}
 
-	@JsonIgnore
-	public Map<Integer, Integer> getSumMap() {
-		return sumMap;
+	public DiceRequest getRequest() {
+		return request;
 	}
 
+	public DiceSum get(int sum) {
+		return diceSumSet.stream().filter(e -> e.getSum() == sum).findFirst().orElse(new DiceSum(sum));
+	}
+
+	public void add(DiceRoll diceRoll) {
+		diceRollList.add(diceRoll);
+	}
+	
+	public void add(DiceSum diceSum) {
+		diceSumSet.add(diceSum);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
