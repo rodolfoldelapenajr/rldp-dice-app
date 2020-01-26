@@ -27,12 +27,13 @@ export class ExtendedHttp extends Http {
     }
 
     private overrideUrl(request: string | Request): void {
-        const apiDomain = sessionStorage.getItem('apiDomain');
-        if (apiDomain) {
+        const diceBackendServiceBaseUrl = sessionStorage.getItem('diceBackendServiceBaseUrl');
+        alert(diceBackendServiceBaseUrl)
+        if (diceBackendServiceBaseUrl) {
             if (typeof request === 'string') {
-                request = apiDomain.concat(request);
+                request = diceBackendServiceBaseUrl.concat(request);
             } else {
-                request.url = apiDomain.concat(request.url);
+                request.url = diceBackendServiceBaseUrl.concat(request.url);
             }
         }
     }

@@ -15,7 +15,6 @@ export class DiceResponseGroup {
         this.totalSimulations = param.totalSimulations;
         this.request = new DistinctRequest(param.request);
         param.diceSumDistributionList.forEach(element => {
-            console.log(element)
             this.diceSumDistributionList.push(new DiceSumDistribution(element));
         });
         param.diceResponseList.forEach(element => {

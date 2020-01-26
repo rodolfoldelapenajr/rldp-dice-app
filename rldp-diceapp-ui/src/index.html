@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
 <script>
-  sessionStorage.setItem('apiDomain', 'http://localhost:8080');
+  const apiDomain = sessionStorage.getItem('apiDomain');
+  sessionStorage.setItem('diceBackendServiceBaseUrl', apiDomain ? apiDomain : 'http://localhost:8080');
 </script>
 <head>
   <meta charset="utf-8">
