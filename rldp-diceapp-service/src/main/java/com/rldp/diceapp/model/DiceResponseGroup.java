@@ -7,6 +7,7 @@ public class DiceResponseGroup {
 
 	private int totalRolls;
 	private int totalSimulations;
+	private List<DiceSumDistribution> diceSumDistributionList;
 
 	private final List<DiceResponse> diceResponseList = new ArrayList<>();
 
@@ -30,6 +31,14 @@ public class DiceResponseGroup {
 	
 	public int getTotalSimulations() {
 		return totalSimulations;
+	}
+
+	public List<DiceSumDistribution> getDiceSumDistributionList() {
+		return diceSumDistributionList;
+	}
+
+	public void setDiceSumDistributionList(List<DiceSumDistribution> diceSumDistributionList) {
+		this.diceSumDistributionList = diceSumDistributionList;
 	}
 
 	public void add(DiceResponse response) {

@@ -1,8 +1,14 @@
 package com.rldp.diceapp.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.Sort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,6 +19,7 @@ import com.rldp.diceapp.model.DiceResponseGroup;
 import com.rldp.diceapp.model.DiceResponseReport;
 import com.rldp.diceapp.model.DiceRoll;
 import com.rldp.diceapp.model.DiceSum;
+import com.rldp.diceapp.model.DiceSumDistribution;
 import com.rldp.diceapp.mongodb.repository.DiceResponseRepository;
 import com.rldp.diceapp.util.DiceUtil;
 
@@ -56,6 +63,8 @@ public class DiceService {
 	public DiceResponseReport getResults() {
 		final DiceResponseReport report = new DiceResponseReport();
 		final Query<DiceResponse> query = diceResponseRepository.createQuery();
+		query.order(Sort.ascending("request.pieces"), Sort.ascending("request.sides"),
+				Sort.ascending("request.timestamp"));
 		List<DiceResponse> list = query.asList();
 		if (list != null) {
 			populateReports(report, list);
@@ -75,9 +84,35 @@ public class DiceService {
 			}
 			group.add(response);
 			if (i == list.size() - 1 || !currentRequest.equals(list.get(i + 1).getRequest())) {
+				populateDiceSumReport(group);
 				report.add(group);
 			}
 			previousRequest = currentRequest;
+		}
+	}
+
+	public void populateDiceSumReport(final DiceResponseGroup group) {
+		final Map<DiceSum, DiceSumDistribution> diceSumMap = new HashMap<>();
+		for (DiceResponse response : group.getDiceResponseList()) {
+			populateDiceSumReport(group, diceSumMap, response);
+		}
+		List<DiceSumDistribution> list = new ArrayList<>();
+		diceSumMap.values().forEach(list::add);
+		group.setDiceSumDistributionList(list);
+	}
+
+	private void populateDiceSumReport(final DiceResponseGroup group,
+			final Map<DiceSum, DiceSumDistribution> diceSumMap, DiceResponse response) {
+		for (DiceSum diceSum : response.getDiceSumSet()) {
+			DiceSumDistribution diceSumDistribution = diceSumMap.get(diceSum);
+			if (diceSumDistribution == null) {
+				diceSumDistribution = new DiceSumDistribution();
+			}
+			diceSumDistribution.add(diceSum);
+			BigDecimal bd = new BigDecimal(Double.valueOf(100 * diceSumDistribution.getDiceSum().getCount()) / group.getTotalRolls())
+							.setScale(2, RoundingMode.HALF_UP);
+			diceSumDistribution.setPercentage(bd.doubleValue());
+			diceSumMap.put(diceSum, diceSumDistribution);
 		}
 	}
 

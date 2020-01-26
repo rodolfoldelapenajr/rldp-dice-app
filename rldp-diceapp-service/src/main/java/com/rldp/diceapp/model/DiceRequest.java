@@ -6,6 +6,8 @@ import javax.validation.constraints.Min;
 
 public class DiceRequest extends DistinctRequest{
 	
+	private static final long serialVersionUID = -3736520037159435489L;
+
 	@Min(value = 1)
 	private int rolls;
 	
