@@ -1,10 +1,9 @@
-export class DiceRequest {
-    pieces: number;
-    sides: number;
+import { DistinctRequest } from './distinct-request';
+
+export class DiceRequest extends DistinctRequest{
     rolls: number;
-    constructor (params?: any) {
-        this.pieces = params.pieces
-        this.sides = params.sides
-        this.rolls = params.rolls
+    constructor (param?: any) {
+        super(param);
+        this.rolls = param.rolls
     }
 }

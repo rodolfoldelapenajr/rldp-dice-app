@@ -1,3 +1,36 @@
-<p>
-    dice-report works!
-</p>
+<div class="bg-white p-2 pt-3  border border-secondary">
+    <h4>Reports</h4>
+    <div *ngIf="diceResponseReport" class="border border-secondary overflow-auto" style="height: 65vh;">
+
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+            <ngb-panel *ngFor="let group of diceResponseReport.groupList">
+                <ng-template ngbPanelTitle>
+                    <span>Pieces: {{group.request.pieces}} | </span>
+                    <span>Sides: {{group.request.sides}} | </span>
+                    <span>Total Rolls: {{group.totalRolls}} | </span>
+                    <span>Total Simulations: {{group.totalSimulations}}</span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Sum</th>
+                                <th scope="col">Count</th>
+                                <th scope="col">Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let diceSumDistribution of group.diceSumDistributionList; index as i">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ diceSumDistribution.diceSum.sum }}</td>
+                                <td>{{ diceSumDistribution.diceSum.count }}</td>
+                                <td>{{ diceSumDistribution.percentage}}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+</div>

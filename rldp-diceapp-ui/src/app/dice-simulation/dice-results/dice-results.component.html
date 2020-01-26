@@ -1,10 +1,10 @@
-<div class="bg-light py-4  border border-secondary">
+<div class="bg-white p-2 border border-secondary" style="height: 72vh;">
 
     <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
         <ngb-panel *ngFor="let results of resultsList">
             <ng-template ngbPanelTitle>
-                <span>Pieces: {{results.request.pieces}} </span>
-                <span>Sides: {{results.request.sides}} </span>
+                <span>Pieces: {{results.request.pieces}} | </span>
+                <span>Sides: {{results.request.sides}} | </span>
                 <span>Rolls: {{results.request.rolls}}</span>
             </ng-template>
             <ng-template ngbPanelContent>

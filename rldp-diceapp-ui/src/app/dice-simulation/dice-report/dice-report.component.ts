@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DiceBackendService } from 'src/app/core/services/dice-backend.service';
+import { DiceResponseReport } from 'src/app/core/models/dice-response-report';
 
 @Component({
     selector: 'app-dice-report',
@@ -10,7 +11,21 @@ export class DiceReportComponent implements OnInit {
 
     constructor(private diceBackendService: DiceBackendService) { }
 
+    diceResponseReport: DiceResponseReport;
+    
     ngOnInit() {
+        this.getDiceResultsReport();
+        this.diceBackendService.diceResponse.subscribe(results => {
+            if (results) {
+                this.getDiceResultsReport();
+            }
+        });
+    }
+
+    getDiceResultsReport() {
+        this.diceBackendService.getDiceResultsReport().subscribe(diceResponseReport => {
+            this.diceResponseReport = diceResponseReport;
+        });
     }
 
 }

@@ -2,7 +2,7 @@ import { DiceSum } from "./dice-sum";
 import { DiceRoll } from "./dice-roll";
 import { DiceRequest } from './dice-request';
 
-export class DiceResults {
+export class DiceResponse {
     diceRollList: Array<DiceRoll> = [];
     diceSumSet: Array<DiceSum> = [];
     request: DiceRequest;

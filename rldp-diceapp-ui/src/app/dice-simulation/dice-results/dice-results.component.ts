@@ -12,7 +12,7 @@ export class DiceResultsComponent implements OnInit {
     constructor(private diceBackendService: DiceBackendService) { }
 
     ngOnInit() {
-        this.diceBackendService.diceResult.subscribe(results => {
+        this.diceBackendService.diceResponse.subscribe(results => {
             if (results) {
                 this.resultsList.unshift(results);
             }

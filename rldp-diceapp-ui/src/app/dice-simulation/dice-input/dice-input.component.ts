@@ -22,7 +22,6 @@ export class DiceInputComponent implements OnInit {
 
     sides = SIDES;
     form: FormGroup;
-    resultsList = [];
     constructor(private diceBackendService: DiceBackendService) { }
 
     ngOnInit() {
@@ -39,8 +38,8 @@ export class DiceInputComponent implements OnInit {
         });
     }
 
-    rollDice(params) {
-        const request = new DiceRequest(params);
+    rollDice(param) {
+        const request = new DiceRequest(param);
         this.diceBackendService.rollDice(request).subscribe(results => {
         });
     }
