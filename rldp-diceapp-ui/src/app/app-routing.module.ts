@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DiceResultsComponent } from './dice-results/dice-results.component';
+import { DiceSimulationComponent } from './dice-simulation/dice-simulation.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: DiceResultsComponent
+    component: DiceSimulationComponent
   }
 ];
 
