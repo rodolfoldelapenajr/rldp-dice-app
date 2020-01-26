@@ -6,7 +6,7 @@ export class DiceResults {
     diceRollList: Array<DiceRoll> = [];
     diceSumSet: Array<DiceSum> = [];
     request: DiceRequest;
-    constructor (param: any, request?: DiceRequest) {
+    constructor (param: any) {
         if (param.diceRollList) {
             param.diceRollList.forEach(element => {
                 this.diceRollList.push(new DiceRoll(element));
@@ -17,6 +17,6 @@ export class DiceResults {
                 this.diceSumSet.push(new DiceSum(element));
             });
         }
-        this.request = request
+        this.request = param.request
     }
 }

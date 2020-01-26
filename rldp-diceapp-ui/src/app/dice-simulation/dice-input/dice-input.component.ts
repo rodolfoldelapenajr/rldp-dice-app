@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
-import { DiceBackendService } from '../core/services/dice-backend.service';
-import { DiceRequest } from '../core/models/dice-request';
+import { DiceBackendService } from 'src/app/core/services/dice-backend.service';
+import { DiceRequest } from 'src/app/core/models/dice-request';
 
 const SIDES = [
     4,
@@ -14,11 +14,12 @@ const SIDES = [
 ]
 
 @Component({
-    selector: 'app-dice-results',
-    templateUrl: './dice-results.component.html',
-    styleUrls: ['./dice-results.component.css']
+    selector: 'app-dice-input',
+    templateUrl: './dice-input.component.html',
+    styleUrls: ['./dice-input.component.css']
 })
-export class DiceResultsComponent implements OnInit {
+export class DiceInputComponent implements OnInit {
+
     sides = SIDES;
     form: FormGroup;
     resultsList = [];
@@ -41,11 +42,6 @@ export class DiceResultsComponent implements OnInit {
     rollDice(params) {
         const request = new DiceRequest(params);
         this.diceBackendService.rollDice(request).subscribe(results => {
-            console.log(JSON.stringify(results))
-            this.resultsList.push(results)
         });
-    }
-    toInt(num: any) {
-        return parseInt(num);
     }
 }
