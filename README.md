@@ -12,7 +12,7 @@ git clone https://github.com/rodolfoldelapenajr/rldp-dice-app.git
 - Maven 3.6.0 or above
 - Node Package Manager 6.13.4
 - Mongodb 4.0.10
-
+- Database named "diceapp-db" created in mongodb
 
 ### Installing
 
@@ -23,7 +23,6 @@ git clone https://github.com/rodolfoldelapenajr/rldp-dice-app.git
 
 - cd rldp-dice-app/rldp-diceapp-ui
 - npm install
-
 
 ## Deployment
 
@@ -38,15 +37,21 @@ Windows
 ##### Run Backend Service
 - cd rldp-dice-app/rldp-diceapp-service
 - java -jar -Dserver.port=8080 target/rldp-diceapp-service-0.0.1-SNAPSHOT.jar
-###### Note: The UI is currently pointed to localhost:8080. To change this, simply run sessionStorage.setItem('apiDomain', [THE BASE URL WHERE YOUR API IS DEPLOYED]) in your browser console.
+###### Note: On default, the UI is pointed to http://localhost:8080. To change this, simply run sessionStorage.setItem('apiDomain', [BASE_URL_OF_API]) in your browser console. Ex. sessionStorage.setItem('apiDomain', "http://ec2-3-136-50-192.us-east-2.compute.amazonaws.com:8080")
+
+##### Accessing backend service
+- http://ec2-3-136-50-192.us-east-2.compute.amazonaws.com:8080/rldp-diceapp-service/dice/roll?pieces=2&sides=8&rolls=2
+- http://localhost:8080/rldp-diceapp-service/dice/roll?pieces=2&sides=8&rolls=2
+- http://ec2-3-136-50-192.us-east-2.compute.amazonaws.com:8080/rldp-diceapp-service/dice/report
+- http://localhost:8080/rldp-diceapp-service/dice/report
 
 ##### Run UI
 - cd rldp-dice-app/rldp-diceapp-ui
 - ng serve
 
-##### Opening the application
+##### Accessint web application
 - Open a browser and access http://localhost:4200
-###### Note: The UI is currently pointed to localhost:8080. To change this, simply run sessionStorage.setItem('apiDomain', [THE BASE URL WHERE YOUR API IS DEPLOYED]) in your browser console.
+###### Note: On default, the UI is pointed to http://localhost:8080. To change this, simply run sessionStorage.setItem('apiDomain', [BASE_URL_OF_API]) in your browser console. Ex. sessionStorage.setItem('apiDomain', "http://ec2-3-136-50-192.us-east-2.compute.amazonaws.com:8080")
 
 
 ## Built With
@@ -60,9 +65,20 @@ Windows
 
 
 
-## Versioning
+## Live
 
+- http://ec2-3-136-50-192.us-east-2.compute.amazonaws.com:8080/rldp-diceapp-service
+- https://rodolfoldelapenajr.github.io/ (Has Pending TODO)
 
+## TODOs
+
+- Swagger for API
+- Live Web application still unable to access Live API
+- Setting up Live DB to access in local machine
+
+## Decissions Made
+
+- Used mongodb to quickly accomodate changes in models
 
 ## Authors
 
