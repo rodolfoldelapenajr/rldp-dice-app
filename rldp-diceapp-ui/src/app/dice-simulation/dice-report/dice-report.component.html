@@ -1,8 +1,7 @@
 <div class="bg-white p-2 pt-3  border border-secondary">
     <h4>Reports</h4>
-    <div *ngIf="diceResponseReport" class="border border-secondary overflow-auto" style="height: 65vh;">
-
-        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <div class="overflow-auto" style="height: 65vh;">
+        <ngb-accordion *ngIf="diceResponseReport" #acc="ngbAccordion" activeIds="ngb-panel-0">
             <ngb-panel *ngFor="let group of diceResponseReport.groupList">
                 <ng-template ngbPanelTitle>
                     <span>Pieces: {{group.request.pieces}} | </span>
